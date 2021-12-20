@@ -1,4 +1,4 @@
-FROM archlinux as build
+FROM archlinux as base
 RUN pacman --noconfirm -Syu \
         vim nano tmux bash-completion python python-pip \
         git make cmake gdb strace ltrace diffutils which \
@@ -37,7 +37,16 @@ RUN echo -e "set -g mouse on\nset -g mode-mouse on\n" > /etc/tmux.conf && \
 
 
 
-FROM build as add_src
+
+FROM base as appsec_tools
+COPY . /appsec
+RUN cd /appsec && pip3 install -e .[dev] && \
+    pytest && echo "Testing AppSec Tools: OK"
+
+
+
+
+FROM appsec_tools as add_src
 
 ARG GIT_RE2_TAG="2021-11-01"
 RUN git -c advice.detachedHead=false clone --depth 1 https://github.com/google/re2 -b ${GIT_RE2_TAG} /src
@@ -52,14 +61,8 @@ WORKDIR /src
 
 
 
-FROM add_src as appsec_tools
-COPY . /appsec
-RUN cd /appsec && pip3 install -e .[dev] && \
-    pytest && echo "Testing AppSec Tools: OK"
 
-
-
-FROM appsec_tools as fuzz_build_stage
+FROM add_src as fuzz_build_stage
 RUN appsec-build -i /src -o /fuzz && \
     egrep '^\$ ' /fuzz/build.log | cut -c 3- > /fuzz/build.cmds && \
     jq '.fuzzing += {"build_cmd": "/fuzz/build.cmds"}' /src/sdl_vars.json \
@@ -67,7 +70,12 @@ RUN appsec-build -i /src -o /fuzz && \
 
 
 
-FROM fuzz_build_stage as fuzz_stage
+FROM fuzz_build_stage as fuzz_prep
+RUN appsec-corpus suite /fuzz import-from /storage
+
+
+
+FROM fuzz_prep as fuzz_stage
 ENV FUZZ_DURATION=65
 RUN appsec-fuzz suite /fuzz
 
@@ -85,6 +93,11 @@ RUN appsec-reproduce suite /fuzz
 
 FROM reproduce_stage as vulnmgmt
 RUN appsec-vulnmgmt suite /fuzz
+
+
+
+FROM vulnmgmt as corpus_export
+RUN appsec-corpus suite /fuzz export-to /storage
 
 
 
