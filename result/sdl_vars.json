@@ -1,0 +1,41 @@
+{
+    "fuzzing": {
+        "os_name": "Arch Linux",
+        "os_version": "Rolling",
+        "product_name": "RE2",
+        "product_version": "2021-11-01",
+        "module_name": "AppSec Tools CI-test",
+        "application_name": "re2",
+        "is_library": true,
+        "is_open_source": true,
+        "language": [
+            "C++"
+        ],
+        "parse_format": [
+            "RegExp"
+        ],
+        "tested_source_file": "re2_fuzzer.cc",
+        "tested_source_function": "TestOneInput",
+        "build_cmd": "/fuzz/build.cmds",
+        "build_root": "./build",
+        "tested_binary_path": "$BUILD_ROOT/re2_fuzzer",
+        "builder_type": "AFL++LLVM-LTO",
+        "fuzzer_type": "AFL++",
+        "run_args": "@@",
+        "run_env": null,
+        "fuzz_cores": 5,
+        "sanitizers": [
+            "ASAN",
+            "UBSAN"
+        ],
+        "stop_conditions": {
+            "minutes_run_time": 1
+        },
+        "fuzzer_version": null,
+        "coverage_type": "lcov-llvm",
+        "tested_binary_name": "re2_fuzzer",
+        "src_root": "/src",
+        "fuzz_sync_dir": "/fuzz/out",
+        "fuzz_time_real_seconds": 70
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "issue_cards": [],
+    "fuzz_stats": {
+        "num_instances": 5,
+        "execs": 693438,
+        "crashes": 0,
+        "hangs": 0,
+        "execs_per_sec_sum": 9349.5,
+        "last_path_timestamp": 1639124770,
+        "start_timestamp": 1639124696
+    }
+}

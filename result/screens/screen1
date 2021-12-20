@@ -1,0 +1,15 @@
+/usr/local/bin/afl-whatsup status check tool for afl-fuzz by Michal Zalewski
+
+Summary stats
+=============
+
+       Fuzzers alive : 5
+      Total run time : 5 minutes, 0 seconds
+         Total execs : 567 thousands
+    Cumulative speed : 9447 execs/sec
+       Average speed : 1889 execs/sec
+       Pending paths : 512 faves, 3972 total
+  Pending per fuzzer : 102 faves, 794 total (on average)
+       Crashes found : 0 locally unique
+Cycles without finds : 0/0/0/0/0
+  Time without finds : 10 seconds
