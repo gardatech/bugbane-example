@@ -1,0 +1,6 @@
+env CFLAGS="-gline-tables-only -fno-omit-frame-pointer" CXXFLAGS="-gline-tables-only -fno-omit-frame-pointer" CC=afl-clang-lto CXX=afl-clang-lto++ LD=afl-clang-lto ./fuzz_build.sh
+env CFLAGS="-gline-tables-only -fno-omit-frame-pointer" CXXFLAGS="-gline-tables-only -fno-omit-frame-pointer" AFL_LLVM_LAF_ALL=1 CC=afl-clang-lto CXX=afl-clang-lto++ LD=afl-clang-lto ./fuzz_build.sh
+env CFLAGS="-gline-tables-only -fno-omit-frame-pointer" CXXFLAGS="-gline-tables-only -fno-omit-frame-pointer" AFL_USE_CMPLOG=1 CC=afl-clang-lto CXX=afl-clang-lto++ LD=afl-clang-lto ./fuzz_build.sh
+env CFLAGS="-gline-tables-only -fno-omit-frame-pointer" CXXFLAGS="-gline-tables-only -fno-omit-frame-pointer" AFL_USE_ASAN=1 CC=afl-clang-lto CXX=afl-clang-lto++ LD=afl-clang-lto ./fuzz_build.sh
+env CFLAGS="-gline-tables-only -fno-omit-frame-pointer" CXXFLAGS="-gline-tables-only -fno-omit-frame-pointer" AFL_USE_UBSAN=1 CC=afl-clang-lto CXX=afl-clang-lto++ LD=afl-clang-lto ./fuzz_build.sh
+env CFLAGS="-gline-tables-only -fno-omit-frame-pointer -O0 --coverage" CXXFLAGS="-gline-tables-only -fno-omit-frame-pointer -O0 --coverage" LDFLAGS=--coverage CC=afl-clang-lto CXX=afl-clang-lto++ LD=afl-clang-lto ./fuzz_build.sh

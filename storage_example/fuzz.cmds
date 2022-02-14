@@ -1,0 +1,6 @@
+watch -t -n 5 afl-whatsup -s /fuzz/out
+afl-fuzz -i /fuzz/in -o /fuzz/out -m none -D -M re2_fuzzer1 -- /fuzz/basic/re2_fuzzer
+afl-fuzz -i /fuzz/in -o /fuzz/out -m none -S re2_fuzzer2 -c /fuzz/cmplog/re2_fuzzer -l 2 -- /fuzz/basic/re2_fuzzer
+afl-fuzz -i /fuzz/in -o /fuzz/out -m none -S re2_fuzzer3 -c /fuzz/cmplog/re2_fuzzer -l 2 -L 0 -- /fuzz/laf/re2_fuzzer
+afl-fuzz -i /fuzz/in -o /fuzz/out -m none -S re2_fuzzer4 -l 3 -L 0 -Z -- /fuzz/asan/re2_fuzzer
+afl-fuzz -i /fuzz/in -o /fuzz/out -m none -S re2_fuzzer5 -L 0 -Z -- /fuzz/ubsan/re2_fuzzer

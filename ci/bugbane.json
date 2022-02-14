@@ -1,0 +1,33 @@
+{
+    "fuzzing": {
+        "os_name": "Arch Linux",
+        "os_version": "Rolling",
+        "product_name": "RE2 Library",
+        "module_name": "RE2",
+        "application_name": "re2",
+        "is_library": true,
+        "is_open_source": true,
+        "language": [
+            "C++"
+        ],
+        "parse_format": [
+            "RegExp"
+        ],
+        "tested_source_file": "re2_fuzzer.cc",
+        "tested_source_function": "TestOneInput",
+
+
+        "build_cmd": "./fuzz_build.sh",
+        "build_root": "./build",
+        "tested_binary_path": "$BUILD_ROOT/re2_fuzzer",
+        "builder_type": "AFL++LLVM-LTO",
+        "fuzzer_type": "AFL++",
+        "run_args": null,
+        "run_env": null,
+        "fuzz_cores": 5,
+        "sanitizers": [
+            "ASAN",
+            "UBSAN"
+        ]
+    }
+}
