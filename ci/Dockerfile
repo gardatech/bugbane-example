@@ -70,7 +70,7 @@ WORKDIR /fuzz
 FROM fuzz_build AS fuzz
 ENV FUZZ_DURATION=65
 CMD bb-corpus suite /fuzz import-from /mnt && \
-    bb-fuzz --suite /fuzz && \
+    bb-fuzz suite /fuzz && \
     bb-coverage suite /fuzz && \
     bb-reproduce suite /fuzz && \
     bb-corpus suite /fuzz export-to /mnt && \
